@@ -8,8 +8,8 @@ type TodolistPropsType = {
 }
 
 type ObjectType = {
-  id: number,
-  title: string,
+  id: number
+  title: string
   isDone: boolean
 }
 
