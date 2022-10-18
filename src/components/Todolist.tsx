@@ -26,6 +26,10 @@ function Todolist(props: TodolistPropsType) {
         tasksFilter = props.tasks.filter(elem => elem.isDone)
     }
 
+    if (filter === 'Three') {
+        tasksFilter = props.tasks.filter(elem => elem.id === 1 || elem.id === 2 || elem.id === 3)
+    }
+
     const filterTask = (filterValue: FilterType) => {
         setFilter(filterValue)
     }
@@ -52,11 +56,11 @@ function Todolist(props: TodolistPropsType) {
             </ul>
             <button onClick={() => {props.removeAllTasks()}}>DELETE ALL TASKS</button>
             <div>
-                {/*<button onClick={() => {*/}
-                {/*    changeFilter("three")*/}
-                {/*}}>*/}
-                {/*    Give me the first three*/}
-                {/*</button>*/}
+                <button onClick={() => {
+                    filterTask("Three")
+                }}>
+                    Give me the first three
+                </button>
                 <button onClick={() => {
                     filterTask('All')
                 }}>All

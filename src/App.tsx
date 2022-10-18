@@ -3,7 +3,7 @@ import './App.css';
 import Todolist from "./components/Todolist";
 
 export type IdType = number;
-export type FilterType = 'All' | 'Active' | 'Completed'
+export type FilterType = 'All' | 'Active' | 'Completed' | 'Three'
 
 function App() {
     const title = 'Hallo!'
