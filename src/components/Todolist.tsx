@@ -3,9 +3,8 @@ import {FilterType, IdType} from "../App";
 
 type TodolistPropsType = {
     title: string
-    tasks: ObjectType[]
-    removeTask: (id: IdType) => void
-    removeAllTasks: () => void
+    tasks: Array<ObjectType>
+    setTasks: (tasks: Array<ObjectType>) => void
 }
 
 type ObjectType = {
@@ -34,6 +33,14 @@ function Todolist(props: TodolistPropsType) {
         setFilter(filterValue)
     }
 
+    const removeAllTasks = () => {
+        props.setTasks([])
+    }
+
+    const removeTask = (id: IdType) => {
+        props.setTasks(props.tasks.filter(elem => elem.id !== id))
+    }
+
     return (
         <div>
             <h3>{props.title}</h3>
@@ -47,14 +54,14 @@ function Todolist(props: TodolistPropsType) {
                         <li key={elem.id}><input type="checkbox" defaultChecked={elem.isDone}/>
                             <span>{elem.title}</span>
                             <button onClick={() => {
-                                props.removeTask(elem.id)
+                                removeTask(elem.id)
                             }}>X
                             </button>
                         </li>
                     )
                 })}
             </ul>
-            <button onClick={() => {props.removeAllTasks()}}>DELETE ALL TASKS</button>
+            <button onClick={() => {removeAllTasks()}}>DELETE ALL TASKS</button>
             <div>
                 <button onClick={() => {
                     filterTask("Three")

@@ -14,18 +14,9 @@ function App() {
         {id: 3, title: "Java Script ", isDone: false},
         {id: 4, title: "React ", isDone: false},
     ])
-
-    const removeTask = (id: IdType) => {
-        setTasks(tasks.filter(elem => elem.id !== id))
-    }
-
-    const removeAllTasks = () => {
-        setTasks([])
-    }
-
     return (
         <>
-            <Todolist title={title} tasks={tasks} removeTask={removeTask} removeAllTasks={removeAllTasks}/>
+            <Todolist title={title} tasks={tasks} setTasks={setTasks}/>
         </>
     );
 }
