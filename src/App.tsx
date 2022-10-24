@@ -1,22 +1,28 @@
 import React, {useState} from 'react';
 import './App.css';
 import Todolist from "./components/Todolist";
+import {v1} from "uuid";
 
-export type IdType = number;
+export type IdType = string;
 export type FilterType = 'All' | 'Active' | 'Completed' | 'Three'
 
 function App() {
     const title = 'Hallo!'
 
     let [tasks, setTasks] = useState([
-        {id: 1, title: "HTML ", isDone: true},
-        {id: 2, title: "CSS ", isDone: true},
-        {id: 3, title: "Java Script ", isDone: false},
-        {id: 4, title: "React ", isDone: false},
+        {id: v1(), title: "HTML ", isDone: true},
+        {id: v1(), title: "CSS ", isDone: true},
+        {id: v1(), title: "Java Script ", isDone: false},
+        {id: v1(), title: "React ", isDone: false},
     ])
+
+    const addTask = (newTitle: string) => {
+        const newTask = {id: v1(), title: newTitle, isDone: false}
+        setTasks([newTask, ...tasks])
+    }
     return (
         <>
-            <Todolist title={title} tasks={tasks} setTasks={setTasks}/>
+            <Todolist title={title} tasks={tasks} setTasks={setTasks} addTask={addTask}/>
         </>
     );
 }
