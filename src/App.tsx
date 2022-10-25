@@ -7,7 +7,6 @@ export type IdType = string;
 export type FilterType = 'All' | 'Active' | 'Completed' | 'Three'
 
 function App() {
-    const title = 'Hallo!'
 
     let [tasks, setTasks] = useState([
         {id: v1(), title: "HTML ", isDone: true},
@@ -22,7 +21,7 @@ function App() {
     }
     return (
         <>
-            <Todolist title={title} tasks={tasks} setTasks={setTasks} addTask={addTask}/>
+            <Todolist tasks={tasks} setTasks={setTasks} addTask={addTask}/>
         </>
     );
 }
