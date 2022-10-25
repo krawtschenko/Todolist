@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {FilterType, IdType} from "../App";
 import Input from "./Input";
+import Button from "./Button";
 
 type TodolistPropsType = {
     tasks: Array<ObjectType>
@@ -52,47 +53,24 @@ function Todolist(props: TodolistPropsType) {
         <div>
             <div>
                 <Input newTitle={newTitle} setNewTitle={setNewTitle} addTaskHandler={addTaskHandler}/>
-                <button onClick={
-                    addTaskHandler
-                }>+
-                </button>
+                <Button name={'+'} callback={addTaskHandler}/>
             </div>
             <ul>
                 {tasksFilter.map((elem) => {
-                    const removeTaskHandler = () => {
-                        removeTask(elem.id)
-                    }
                     return (
                         <li key={elem.id}><input type="checkbox" defaultChecked={elem.isDone}/>
                             <span>{elem.title}</span>
-                            <button onClick={removeTaskHandler}>X
-                            </button>
+                            <Button name={'X'} callback={() => removeTask(elem.id)}/>
                         </li>
                     )
                 })}
             </ul>
-            <button onClick={() =>
-                removeAllTasks()
-            }>DELETE ALL TASKS
-            </button>
+            <Button name={'Remove All'} callback={removeAllTasks}/>
             <div>
-                <button onClick={() =>
-                    filterTask("Three")
-                }>
-                    Give me the first three
-                </button>
-                <button onClick={() =>
-                    filterTask('All')
-                }>All
-                </button>
-                <button onClick={() =>
-                    filterTask('Active')
-                }>Active
-                </button>
-                <button onClick={() =>
-                    filterTask('Completed')
-                }>Completed
-                </button>
+                <Button name={'Give me the first three'} callback={() => filterTask('Three')}/>
+                <Button name={'All'} callback={() => filterTask('All')}/>
+                <Button name={'Active'} callback={() => filterTask('Active')}/>
+                <Button name={'Completed'} callback={() => filterTask('Completed')}/>
             </div>
         </div>
     )
