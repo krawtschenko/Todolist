@@ -4,7 +4,7 @@ import Todolist from "./components/Todolist";
 import {v1} from "uuid";
 
 export type IdType = string;
-export type FilterType = 'All' | 'Active' | 'Completed' | 'Three'
+export type FilterType = 'All' | 'Active' | 'Completed'
 
 function App() {
 
