@@ -1,6 +1,7 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
 import {FilterType, IdType} from "../App";
 import Button from "./Button";
+import {v1} from "uuid";
 
 type ObjectType = {
     id: string
@@ -11,12 +12,12 @@ type ObjectType = {
 type TodolistPropsType = {
     tasks: Array<ObjectType>
     setTasks: (tasks: Array<ObjectType>) => void
-    addTask: (newTitle: string) => void
+    // addTask: (newTitle: string) => void
     changeTaskStatus: (taskId: string, isDone: boolean) => void
 }
 
 function Todolist(props: TodolistPropsType) {
-    let tasksFilter = props.tasks //Тут зберігаємо відфільтровані таски
+    let tasksFilter = props.tasks // Filtered tasks
     const [filter, setFilter] = useState<FilterType>('All')
     const [title, setTitle] = useState('')
     const [error, setError] = useState<string | null>(null)
@@ -42,9 +43,10 @@ function Todolist(props: TodolistPropsType) {
         props.setTasks(props.tasks.filter(elem => elem.id !== id))
     }
 
-    const addTaskHandler = () => {
+    const addTask = () => {
         if (title.trim() !== '') {
-            props.addTask(title.trim())
+            const newTask = {id: v1(), title: title.trim(), isDone: false}
+            props.setTasks([newTask, ...props.tasks])
             setTitle('')
         } else {
             setError('Title is required')
@@ -59,7 +61,7 @@ function Todolist(props: TodolistPropsType) {
 // For input ---------------------------------------------------------------
     const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
-            addTaskHandler()
+            addTask()
         }
     }
 
@@ -95,7 +97,7 @@ function Todolist(props: TodolistPropsType) {
                        onChange={onChangeHandler}
                        onKeyDown={onKeyPressHandler}
                 />
-                <Button name={'+'} callback={addTaskHandler}/>
+                <Button name={'+'} callback={addTask}/>
                 {error && <div className={'errorMessage'}>{error}</div>}
             </div>
             <ul>
