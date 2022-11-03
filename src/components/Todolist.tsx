@@ -1,7 +1,9 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
-import {FilterType, IdType} from "../App";
 import Button from "./Button";
 import {v1} from "uuid";
+
+type IdType = string;
+type FilterType = 'All' | 'Active' | 'Completed'
 
 type ObjectType = {
     id: string
