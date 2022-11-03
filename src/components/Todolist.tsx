@@ -16,7 +16,7 @@ type TodolistPropsType = {
 }
 
 function Todolist(props: TodolistPropsType) {
-    let tasksFilter = props.tasks
+    let tasksFilter = props.tasks //Тут зберігаємо відфільтровані таски
     const [filter, setFilter] = useState<FilterType>('All')
     const [title, setTitle] = useState('')
     const [error, setError] = useState<string | null>(null)
@@ -74,7 +74,7 @@ function Todolist(props: TodolistPropsType) {
     }
 // For checkbox ------------------------------------------------------------
 
-    const getElementFromState = tasksFilter.map((task) => {
+    const elementsForList = tasksFilter.map((task) => {
         return (
             <li key={task.id} className={task.isDone ? 'isDone' : ''}>
                 <input type="checkbox"
@@ -82,7 +82,7 @@ function Todolist(props: TodolistPropsType) {
                        onChange={(event) => onCheckboxHandler(task.id, event.currentTarget.checked)}
                 />
                 <span>{task.title}</span>
-                <Button name={'X'} callback={() => removeTask(task.id)}/>
+                <Button name={'✖'} callback={() => removeTask(task.id)}/>
             </li>
         )
     })
@@ -99,7 +99,7 @@ function Todolist(props: TodolistPropsType) {
                 {error && <div className={'errorMessage'}>{error}</div>}
             </div>
             <ul>
-                {getElementFromState}
+                {elementsForList}
             </ul>
             <div>
                 <Button className={classButtonAll} name={'All'} callback={() => filterTask('All')}/>
