@@ -60,6 +60,7 @@ function Todolist(props: TodolistPropsType) {
 
 // For input ---------------------------------------------------------------
     const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        setError(null)
         setTitle(event.currentTarget.value)
     }
 
