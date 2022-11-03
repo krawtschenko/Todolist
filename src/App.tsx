@@ -15,23 +15,8 @@ function App() {
         {id: v1(), title: "React ", isDone: false},
     ])
 
-//Change checkbox ---------------------------------------------------------
-    const changeTaskStatus = (taskId: string, isDone: boolean) => {
-        const task = tasks.find(task => task.id === taskId)
-        if (task) {
-            task.isDone = isDone
-            setTasks([...tasks])
-        }
-    }
-//Change checkbox ---------------------------------------------------------
-
     return (
-        <>
-            <Todolist tasks={tasks}
-                      setTasks={setTasks}
-                      changeTaskStatus={changeTaskStatus}
-            />
-        </>
+        <Todolist tasks={tasks} setTasks={setTasks}/>
     );
 }
 

@@ -12,14 +12,12 @@ type ObjectType = {
 type TodolistPropsType = {
     tasks: Array<ObjectType>
     setTasks: (tasks: Array<ObjectType>) => void
-    // addTask: (newTitle: string) => void
-    changeTaskStatus: (taskId: string, isDone: boolean) => void
 }
 
 function Todolist(props: TodolistPropsType) {
     let tasksFilter = props.tasks // Filtered tasks
     const [filter, setFilter] = useState<FilterType>('All')
-    const [title, setTitle] = useState('')
+    const [title, setTitle] = useState('') // Value for input
     const [error, setError] = useState<string | null>(null)
 
 
@@ -59,20 +57,24 @@ function Todolist(props: TodolistPropsType) {
 // For buttons -------------------------------------------------------------
 
 // For input ---------------------------------------------------------------
+    const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        setTitle(event.currentTarget.value)
+    }
+
     const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
             addTask()
         }
     }
-
-    const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        setTitle(event.currentTarget.value)
-    }
 // For input ---------------------------------------------------------------
 
 // For checkbox ------------------------------------------------------------
-    const onCheckboxHandler = (taskId: string, isDone: boolean) => {
-        props.changeTaskStatus(taskId, isDone)
+    const changeTaskStatus = (taskId: string, isDone: boolean) => {
+        const task = props.tasks.find(task => task.id === taskId)
+        if (task) {
+            task.isDone = isDone
+            props.setTasks([...props.tasks])
+        }
     }
 // For checkbox ------------------------------------------------------------
 
@@ -81,7 +83,7 @@ function Todolist(props: TodolistPropsType) {
             <li key={task.id} className={task.isDone ? 'isDone' : ''}>
                 <input type="checkbox"
                        checked={task.isDone}
-                       onChange={(event) => onCheckboxHandler(task.id, event.currentTarget.checked)}
+                       onChange={(event) => changeTaskStatus(task.id, event.currentTarget.checked)}
                 />
                 <span>{task.title}</span>
                 <Button name={'✖'} callback={() => removeTask(task.id)}/>
