@@ -17,9 +17,9 @@ type TodolistPropsType = {
 }
 
 function Todolist(props: TodolistPropsType) {
-    let tasksFilter = props.tasks // Filtered tasks
+    let tasksFilter = props.tasks // Тут зберігаємо відфільтровані таски
     const [filter, setFilter] = useState<FilterType>('All')
-    const [title, setTitle] = useState('') // Value for input
+    const [title, setTitle] = useState('') // Те що всередині інпута
     const [error, setError] = useState<string | null>(null)
 
 
@@ -43,11 +43,11 @@ function Todolist(props: TodolistPropsType) {
         props.setTasks(props.tasks.filter(elem => elem.id !== id))
     }
 
-    const addTask = () => {
+    const addTask = () => { // Якшо відрізаємо спейси на початку і в кінці і залишається не пустий рядок
         if (title.trim() !== '') {
-            const newTask = {id: v1(), title: title.trim(), isDone: false}
-            props.setTasks([newTask, ...props.tasks])
-            setTitle('')
+            const newTask = {id: v1(), title: title.trim(), isDone: false} // Створюємо нову таску з обрізаними пробілами в тайтлі
+            props.setTasks([newTask, ...props.tasks]) // Додаємо нову таску і все шо було в тасках раніше
+            setTitle('') // Чистимо середину інпута
         } else {
             setError('Title is required')
         }
@@ -59,13 +59,13 @@ function Todolist(props: TodolistPropsType) {
 // For buttons -------------------------------------------------------------
 
 // For input ---------------------------------------------------------------
-    const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => { // При зміні середини інпута виконується функція
         setError(null)
-        setTitle(event.currentTarget.value)
+        setTitle(event.currentTarget.value) // Записуємо, те що ввели в інпуті, в тайтл, який передаємо в велью інпута
     }
 
-    const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === 'Enter') {
+    const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => { // Коли натискаємо будь яку кнопку в інпуті
+        if (event.key === 'Enter') { // Якшо кнопка ентер
             addTask()
         }
     }
@@ -73,7 +73,7 @@ function Todolist(props: TodolistPropsType) {
 
 // For checkbox ------------------------------------------------------------
     const changeTaskStatus = (taskId: string, isDone: boolean) => {
-        const task = props.tasks.find(task => task.id === taskId)
+        const task = props.tasks.find(task => task.id === taskId) // Записуємо в змінну таску, в якій id = тому id по якому ми клікнули
         if (task) {
             task.isDone = isDone
             props.setTasks([...props.tasks])
