@@ -4,13 +4,11 @@ import {v1} from "uuid";
 
 type IdType = string;
 type FilterType = 'All' | 'Active' | 'Completed'
-
 type ObjectType = {
     id: string
     title: string
     isDone: boolean
 }
-
 type TodolistPropsType = {
     tasks: Array<ObjectType>
     setTasks: (tasks: Array<ObjectType>) => void
