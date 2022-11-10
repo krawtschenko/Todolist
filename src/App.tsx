@@ -80,6 +80,8 @@ function App() {
             //Записуємо в стейт тудулісти, серед яких один модефікований
             setTodoLists([...todoLists])
         }
+        // Igor
+        setTodoLists(todoLists.map(elem => elem.id === todolistId ? {...elem, filter: filterValue} : elem))
     }
 //--------------------------------------------------------------------
 
