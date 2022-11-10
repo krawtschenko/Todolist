@@ -81,7 +81,7 @@ function App() {
             setTodoLists([...todoLists])
         }
         // Igor
-        setTodoLists(todoLists.map(elem => elem.id === todolistId ? {...elem, filter: filterValue} : elem))
+        // setTodoLists(todoLists.map(elem => elem.id === todolistId ? {...elem, filter: filterValue} : elem))
     }
 //--------------------------------------------------------------------
 
