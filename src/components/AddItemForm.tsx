@@ -8,8 +8,9 @@ type AddItemFormPropsType = {
 export const AddItemForm: React.FC<AddItemFormPropsType> = (props) => {
     // Те що всередині інпута
     const [title, setTitle] = useState('')
-    // Для класу "Помилка"
+    // Для класу "error"
     const [error, setError] = useState<string | null>(null)
+
     const onClickAddTaskHandler = () => {
         // Якшо відрізаємо пробіли на початку та в кінці і залишається не пустий рядок
         if (title.trim() !== '') {
