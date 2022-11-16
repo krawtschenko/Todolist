@@ -43,6 +43,7 @@ function Todolist(props: TodolistPropsType) {
 //--------------------------------------------------------------------
 
     // Якшо виносмо за return
+    // Функція для змінення title в todoList
     // const updateTaskTitleHandler = (title: string, taskId: string) => {
     //     props.updateTitle(props.id, taskId, title)
     // }
@@ -60,6 +61,7 @@ function Todolist(props: TodolistPropsType) {
             <AddItemForm addItem={addTask}/>
             <ul>
                 {props.tasks.map((task) => {
+                    // Функція для змінення title в task
                     const updateTaskTitleHandler = (title: string) => {
                         props.updateTaskTitle(props.id, task.id, title)
                     }
