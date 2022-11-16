@@ -26,6 +26,16 @@ function Todolist(props: TodolistPropsType) {
         props.removeTodolist(props.id)
     }
 
+    // Якшо виносмо за return
+    // Функція для змінення title в todoList
+    // const updateTaskTitleHandler = (title: string, taskId: string) => {
+    //     props.updateTitle(props.id, taskId, title)
+    // }
+
+    const updateTodoListTitleHandler = (title: string) => {
+        props.updateTodoListTitle(props.id, title)
+    }
+
 // Buttons------------------------------------------------------------
     const classButtonAll = props.filter === 'All' ? 'activeFilter' : ''
     const classButtonActive = props.filter === 'Active' ? 'activeFilter' : ''
@@ -41,16 +51,6 @@ function Todolist(props: TodolistPropsType) {
         props.changeFilter('Completed', props.id)
     }
 //--------------------------------------------------------------------
-
-    // Якшо виносмо за return
-    // Функція для змінення title в todoList
-    // const updateTaskTitleHandler = (title: string, taskId: string) => {
-    //     props.updateTitle(props.id, taskId, title)
-    // }
-
-    const updateTodoListTitleHandler = (title: string) => {
-        props.updateTodoListTitle(props.id, title)
-    }
 
     return (
         <div>
