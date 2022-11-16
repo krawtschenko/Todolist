@@ -53,7 +53,8 @@ function App() {
     const addTask = (title: string, todolistId: string) => {
         // Створюємо нову таску з обрізаними пробілами в тайтлі
         const newTask = {id: v1(), title: title.trim(), isDone: false}
-        // setTasks({...tasks, [todolistId]: [newTask, ...tasks[todolistId]]}) //Igor
+        //Igor
+        // setTasks({...tasks, [todolistId]: [newTask, ...tasks[todolistId]]})
         const todolistTask = tasks[todolistId]
         tasks[todolistId] = [newTask, ...todolistTask]
         setTasks({...tasks})
