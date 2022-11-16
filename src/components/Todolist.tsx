@@ -2,6 +2,7 @@ import React from "react";
 import Button from "./Button";
 import {FilterType, TaskType} from "../App";
 import {AddItemForm} from "./AddItemForm";
+import EditableSpan from "./EditableSpan";
 
 type TodolistPropsType = {
     id: string
@@ -13,6 +14,8 @@ type TodolistPropsType = {
     addTask: (title: string, todolistId: string) => void
     changeTaskStatus: (taskId: string, isDone: boolean, todolistId: string) => void
     removeTodolist: (id: string) => void
+    updateTaskTitle: (todolistId: string, taskId: string, title: string) => void
+    updateTodoListTitle: (todolistId: string, title: string) => void
 }
 
 function Todolist(props: TodolistPropsType) {
@@ -39,21 +42,36 @@ function Todolist(props: TodolistPropsType) {
     }
 //--------------------------------------------------------------------
 
+    // Якшо виносмо за return
+    // const updateTaskTitleHandler = (title: string, taskId: string) => {
+    //     props.updateTitle(props.id, taskId, title)
+    // }
+
+    const updateTodoListTitleHandler = (title: string) => {
+        props.updateTodoListTitle(props.id, title)
+    }
+
     return (
         <div>
             <h3>
-                {props.title}
+                <EditableSpan value={props.title} onChange={updateTodoListTitleHandler}/>
                 <Button name={'✖'} callback={removeTodoList}/>
             </h3>
             <AddItemForm addItem={addTask}/>
             <ul>
                 {props.tasks.map((task) => {
+                    const updateTaskTitleHandler = (title: string) => {
+                        props.updateTaskTitle(props.id, task.id, title)
+                    }
+
                     return (
                         <li key={task.id} className={task.isDone ? 'isDone' : ''}>
                             <input type="checkbox"
                                    checked={task.isDone}
                                    onChange={(event) => props.changeTaskStatus(task.id, event.currentTarget.checked, props.id)}/>
-                            <span>{task.title}</span>
+                            {/*Якшо виносмо за return*/}
+                            {/*<EditableSpan onChange={(newTitle) => updateTaskTitleHandler(newTitle, task.id)} value={task.title}/>*/}
+                            <EditableSpan onChange={updateTaskTitleHandler} value={task.title}/>
                             <Button name={'✖'} callback={() => props.removeTask(task.id, props.id)}/>
                         </li>
                     )
