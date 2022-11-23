@@ -138,10 +138,10 @@ function App() {
             {/*Header*/}
             <AppBar position="static" style={{background: '#228B22'}}>
                 <Toolbar>
-                    <IconButton edge="start" color="inherit" aria-label="menu">
+                    <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
                         <MenuIcon/>
                     </IconButton>
-                    <Typography variant="h6">
+                    <Typography variant="h6" sx={{ flexGrow: 1 }}>
                         TodoList
                     </Typography>
                     <Button color="inherit">Login</Button>
