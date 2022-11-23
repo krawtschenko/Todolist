@@ -179,8 +179,7 @@ function App() {
                                               filter={todolist.filter}
                                               removeTodolist={removeTodolist}
                                               updateTaskTitle={updateTaskTitle}
-                                              updateTodoListTitle={updateTodoListTitle}
-                                    />
+                                              updateTodoListTitle={updateTodoListTitle}/>
                                 </Paper>
                             </Grid>
                         )
