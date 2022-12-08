@@ -19,64 +19,64 @@ export type TaskType = {
     title: string
     isDone: boolean
 }
-export type TodolistType = {
+export type TodoListType = {
     id: string
     title: string
     filter: FilterType
 }
-type TaskStateType = {
+export type TaskStateType = {
     [key: string]: Array<TaskType>
 }
 
 function App() {
-    let todolistID1 = v1()
-    let todolistID2 = v1()
-    let [todoLists, setTodoLists] = useState<Array<TodolistType>>([
-        {id: todolistID1, title: 'What to learn', filter: 'All'},
-        {id: todolistID2, title: 'What to buy', filter: 'All'}
+    let todoListID1 = v1()
+    let todoListID2 = v1()
+    let [todoLists, setTodoLists] = useState<Array<TodoListType>>([
+        {id: todoListID1, title: 'What to learn', filter: 'All'},
+        {id: todoListID2, title: 'What to buy', filter: 'All'}
     ])
     let [tasks, setTasks] = useState<TaskStateType>({
-        [todolistID1]: [
+        [todoListID1]: [
             {id: v1(), title: 'HTML&CSS', isDone: true},
             {id: v1(), title: 'JS', isDone: true},
             {id: v1(), title: 'ReactJS', isDone: false},
 
         ],
-        [todolistID2]: [
+        [todoListID2]: [
             {id: v1(), title: 'Rest API', isDone: true},
             {id: v1(), title: 'GraphQL', isDone: false},
         ]
     })
 
 // Buttons------------------------------------------------------------
-    const removeTask = (id: string, todolistId: string) => {
+    const removeTask = (id: string, todoListId: string) => {
         //Igor
-        // setTasks({...tasks, [todolistId]: tasks[todolistId].filter(task => task.id !== id)})
-        //Дістаємо потрібний нам масив по ключу todolistId
-        const todolistTask = tasks[todolistId]
+        // setTasks({...tasks, [todoListId]: tasks[todoListId].filter(task => task.id !== id)})
+        //Дістаємо потрібний нам масив по ключу todoListId
+        const todoListTask = tasks[todoListId]
         //Перезапишемо в обʼєкті масив з видаленою таскою
-        tasks[todolistId] = todolistTask.filter(task => task.id !== id)
+        tasks[todoListId] = todoListTask.filter(task => task.id !== id)
         //Записуємо в стейт копію обʼєкта, вже з видаленою таскою
         setTasks({...tasks})
     }
-    const addTask = (title: string, todolistId: string) => {
+    const addTask = (title: string, todoListId: string) => {
         // Створюємо нову таску з обрізаними пробілами в тайтлі
         const newTask = {id: v1(), title: title.trim(), isDone: false}
         //Igor
-        // setTasks({...tasks, [todolistId]: [newTask, ...tasks[todolistId]]})
-        const todolistTask = tasks[todolistId]
-        tasks[todolistId] = [newTask, ...todolistTask]
+        // setTasks({...tasks, [todoListId]: [newTask, ...tasks[todoListId]]})
+        const todoListTask = tasks[todoListId]
+        tasks[todoListId] = [newTask, ...todoListTask]
         setTasks({...tasks})
     }
-    const removeTodolist = (id: string) => {
+    const removeTodoList = (id: string) => {
         //Сетаємо тудуліст, але вже відфільтрований
-        setTodoLists([...todoLists.filter(todolist => todolist.id !== id)])
+        setTodoLists([...todoLists.filter(todoList => todoList.id !== id)])
         //Також видаляємо таски з цього тудуліста
         delete tasks[id]
     }
     const addTodoList = (title: string) => {
         const newTodoListID = v1()
-        const newTodoList: TodolistType = {id: newTodoListID, title: title.trim(), filter: 'All'}
+        const newTodoList: TodoListType = {id: newTodoListID, title: title.trim(), filter: 'All'}
         setTodoLists([newTodoList, ...todoLists])
         setTasks({...tasks, [newTodoListID]: []})
     }
@@ -98,10 +98,10 @@ function App() {
 //--------------------------------------------------------------------
 
 // Checkbox-----------------------------------------------------------
-    const changeTaskStatus = (taskId: string, isDone: boolean, todolistId: string) => {
+    const changeTaskStatus = (taskId: string, isDone: boolean, todoListId: string) => {
         //Igor
-        // setTasks({...tasks, [todolistId]: tasks[todolistId].map(task => task.id === taskId ? {...task, isDone} : task)})
-        const todolistTask = tasks[todolistId]
+        // setTasks({...tasks, [todoListId]: tasks[todoListId].map(task => task.id === taskId ? {...task, isDone} : task)})
+        const todolistTask = tasks[todoListId]
         //Записуємо в змінну таску, в якій id = тому id по якому ми клікнули
         const task = todolistTask.find(task => task.id === taskId)
         if (task) {
@@ -112,14 +112,14 @@ function App() {
 //--------------------------------------------------------------------
 
 // Update-------------------------------------------------------------
-    const updateTaskTitle = (todolistId: string, taskId: string, title: string) => {
+    const updateTaskTitle = (todoListId: string, taskId: string, title: string) => {
         setTasks({
             ...tasks,
-            [todolistId]: tasks[todolistId].map(task => task.id === taskId ? {...task, title: title} : task)
+            [todoListId]: tasks[todoListId].map(task => task.id === taskId ? {...task, title: title} : task)
         })
     }
-    const updateTodoListTitle = (todolistId: string, title: string) => {
-        setTodoLists(todoLists.map(todoList => todoList.id === todolistId ? {...todoList, title: title} : todoList))
+    const updateTodoListTitle = (todoListId: string, title: string) => {
+        setTodoLists(todoLists.map(todoList => todoList.id === todoListId ? {...todoList, title: title} : todoList))
     }
 //--------------------------------------------------------------------
 
@@ -128,10 +128,10 @@ function App() {
             {/*Header*/}
             <AppBar position="static" style={{background: '#228B22'}}>
                 <Toolbar>
-                    <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
+                    <IconButton edge="start" color="inherit" aria-label="menu" sx={{mr: 2}}>
                         <MenuIcon/>
                     </IconButton>
-                    <Typography variant="h6" sx={{ flexGrow: 1 }}>
+                    <Typography variant="h6" sx={{flexGrow: 1}}>
                         TodoList
                     </Typography>
                     <Button color="inherit">Login</Button>
@@ -167,7 +167,7 @@ function App() {
                                               addTask={addTask}
                                               changeTaskStatus={changeTaskStatus}
                                               filter={todolist.filter}
-                                              removeTodolist={removeTodolist}
+                                              removeTodolist={removeTodoList}
                                               updateTaskTitle={updateTaskTitle}
                                               updateTodoListTitle={updateTodoListTitle}/>
                                 </Paper>
