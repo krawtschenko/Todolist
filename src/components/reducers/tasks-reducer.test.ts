@@ -5,7 +5,7 @@ import {
     removeTaskAC, removeTodolistAC,
     tasksReducer,
     updateTaskTitleAC
-} from './tasks-reducer'
+} from './tasksReducer'
 import {TaskStateType} from "../../App";
 
 const startState: TaskStateType = {

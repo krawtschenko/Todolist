@@ -4,11 +4,11 @@ import {v1} from "uuid";
 export const todoListsReducer = (state: Array<TodoListType>, action: ActionsType): Array<TodoListType> => {
     switch (action.type) {
         case 'REMOVE-TODOLIST': {
-            return state.filter(todoList => todoList.id !== action.payload.id)
+            return state.filter(todoList => todoList.id !== action.todoListID)
         }
         case 'ADD-TODOLIST': {
             const newTodoList: TodoListType = {id: action.newTodoListID, title: action.newTitle, filter: 'All'}
-            return [...state, newTodoList]
+            return [newTodoList, ...state]
         }
         case 'CHANGE-TODOLIST-TITLE': {
             return state.map(todoList => todoList.id === action.payload.id ? {
@@ -36,9 +36,7 @@ type ActionsType =
 export const removeTodoListAC = (todoListID: string) => {
     return {
         type: 'REMOVE-TODOLIST',
-        payload: {
-            id: todoListID
-        }
+        todoListID
     } as const
 }
 export const addTodolistAC = (newTitle: string) => {
