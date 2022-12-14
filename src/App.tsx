@@ -158,7 +158,7 @@ function App() {
 
                         return (
                             <Grid item xs={3} key={todolist.id}>
-                                <Paper elevation={12} style={{padding: '10px'}}>
+                                <Paper elevation={12} style={{padding: '3px'}}>
                                     <Todolist id={todolist.id}
                                               title={todolist.title}
                                               tasks={tasksFilter}
