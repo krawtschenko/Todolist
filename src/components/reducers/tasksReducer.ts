@@ -1,7 +1,9 @@
 import {v1} from "uuid";
 import {TaskStateType} from "../../App";
 
-export const tasksReducer = (state: TaskStateType, action: ActionsType): TaskStateType => {
+const initialState: TaskStateType = {}
+
+export const tasksReducer = (state: TaskStateType = initialState, action: ActionsType): TaskStateType => {
     switch (action.type) {
         case "REMOVE-TASK":
             return {
@@ -34,7 +36,7 @@ export const tasksReducer = (state: TaskStateType, action: ActionsType): TaskSta
             delete stateCopy[action.todoListID]
             return stateCopy
         default:
-            throw new Error("I don't understand this type")
+            return state
     }
 }
 
