@@ -8,7 +8,7 @@ type AddItemFormPropsType = {
     addItem: (title: string) => void;
 };
 
-export const AddItemForm: React.FC<AddItemFormPropsType> = (props) => {
+export const AddItemForm: React.FC<AddItemFormPropsType> = React.memo((props) => {
     // Те що всередині інпута
     const [title, setTitle] = useState("");
     // Для класу "error"
@@ -25,7 +25,10 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = (props) => {
     };
     // При зміні середини інпута виконується функція
     const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        setError(null);
+        if (error) {
+            setError(null);
+        }
+        // setError(null);
         // Записуємо, те що ввели в інпуті, в тайтл, який передаємо в велью інпута
         setTitle(event.currentTarget.value);
     };
@@ -47,4 +50,4 @@ export const AddItemForm: React.FC<AddItemFormPropsType> = (props) => {
             </IconButton>
         </div>
     );
-};
+});

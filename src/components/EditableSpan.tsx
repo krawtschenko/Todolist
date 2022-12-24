@@ -7,7 +7,8 @@ type EditableSpanPropsTYpe = {
     onChange: (newTitle: string) => void
 }
 
-const EditableSpan: React.FC<EditableSpanPropsTYpe> = (props) => {
+const EditableSpan: React.FC<EditableSpanPropsTYpe> = React.memo((props) => {
+    console.log('EditableSpan')
     let [editMode, setEditMode] = useState<boolean>(false)
     const [title, setTitle] = useState<string>(props.value)
 
@@ -27,9 +28,10 @@ const EditableSpan: React.FC<EditableSpanPropsTYpe> = (props) => {
     }
 
     return editMode
-        ? <Input value={title} color="success" onChange={(event) => onChangeInputHandler(event)} onBlur={activateViewMode}
+        ?
+        <Input value={title} color="success" onChange={(event) => onChangeInputHandler(event)} onBlur={activateViewMode}
                autoFocus={true}/>
         : <span onDoubleClick={activateEditMode}>{props.value}</span>
-};
+});
 
 export default EditableSpan;
