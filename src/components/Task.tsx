@@ -17,7 +17,8 @@ export const Task = React.memo((props: TaskPropsType) => {
     // Функція для змінення title в task
     const updateTaskTitleHandler = useCallback((title: string) => {
         props.updateTaskTitle(props.todoListId, props.task.id, title);
-    }, [props.updateTaskTitle, props.task.id, props.task.id]);
+    }, [props.updateTaskTitle, props.todoListId, props.task.id]);
+    // Функція для змінення status в task
     const onChangeTaskStatusHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         props.changeTaskStatus(
             props.task.id,

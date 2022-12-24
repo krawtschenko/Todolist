@@ -6,7 +6,6 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Button from "@mui/material/Button";
 import ButtonGroup from "@mui/material/ButtonGroup";
-import Checkbox from "@mui/material/Checkbox";
 import {Task} from "./Task";
 
 type TodolistPropsType = {
@@ -30,6 +29,7 @@ const Todolist = React.memo((props: TodolistPropsType) => {
     const removeTodoList = () => {
         props.removeTodolist(props.id);
     };
+    // Міняємо заголовок тудуліста
     const updateTodoListTitleHandler = useCallback((title: string) => {
         props.updateTodoListTitle(props.id, title);
     }, [props.updateTodoListTitle, props.id]);
@@ -41,12 +41,15 @@ const Todolist = React.memo((props: TodolistPropsType) => {
     const classButtonCompleted =
         props.filter === "Completed" ? "contained" : "outlined";
 
+    // Міняємо статус тудуліста на All
     const onAllClickHandler = useCallback(() => {
         props.changeFilter("All", props.id);
     }, [props.changeFilter, props.id]);
+    // Міняємо статус тудуліста на Active
     const onActiveClickHandler = useCallback(() => {
         props.changeFilter("Active", props.id);
     }, [props.changeFilter, props.id]);
+    // Міняємо статус тудуліста на Completed
     const onCompletedClickHandler = useCallback(() => {
         props.changeFilter("Completed", props.id);
     }, [props.changeFilter, props.id]);
@@ -59,6 +62,7 @@ const Todolist = React.memo((props: TodolistPropsType) => {
     if (props.filter === 'Active') {
         tasksFilter = props.tasks.filter(elem => !elem.isDone)
     }
+    // Якшо у тудуліста свойство filter = Completed, то фільтруємо
     if (props.filter === 'Completed') {
         tasksFilter = props.tasks.filter(elem => elem.isDone)
     }

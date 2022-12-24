@@ -1,7 +1,6 @@
 import React, {ChangeEvent, useState} from 'react';
 import Input from '@mui/material/Input';
 
-
 type EditableSpanPropsTYpe = {
     value: string
     onChange: (newTitle: string) => void
