@@ -12,14 +12,14 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import {Paper} from "@mui/material";
-import {changeTodoListFilterAC, changeTodoListTitleAC, todoListsReducer} from "./components/reducers/todoListsReducer";
+import {changeTodoListFilterAC, changeTodoListTitleAC, todoListsReducer} from "./state/reducers/todoListsReducer";
 import {
     addTaskAC,
     addTodolistAC, changeTaskStatusAC,
     removeTaskAC,
     removeTodolistAC,
     tasksReducer, updateTaskTitleAC
-} from "./components/reducers/tasksReducer";
+} from "./state/reducers/tasksReducer";
 
 export type FilterType = 'All' | 'Active' | 'Completed'
 export type TaskType = {
