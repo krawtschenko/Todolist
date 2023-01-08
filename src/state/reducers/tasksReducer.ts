@@ -1,12 +1,7 @@
 import {v1} from "uuid";
 import {TaskStateType} from "../../App";
 
-const initialState: TaskStateType = {
-    [1]: [
-        {id: v1(), title: 'Test', isDone: true},
-        {id: v1(), title: 'Test', isDone: false},
-    ]
-}
+const initialState: TaskStateType = {}
 
 export const tasksReducer = (state: TaskStateType = initialState, action: ActionsType): TaskStateType => {
     switch (action.type) {

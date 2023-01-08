@@ -1,16 +1,16 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+import {createRoot} from 'react-dom/client';
 import "./index.css";
-import { Provider } from "react-redux";
+import {Provider} from "react-redux";
 import AppWithRedux from "./AppWithRedux";
-import { store } from "./state/store";
+import {store} from "./state/store";
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
+const root = createRoot(
+    document.getElementById("root") as HTMLElement
 );
 root.render(
     // Provider для того щоб всі дочірні компоненти отримували store
-  <Provider store={store}>
-    <AppWithRedux />
-  </Provider>
+    <Provider store={store}>
+        <AppWithRedux/>
+    </Provider>
 );
