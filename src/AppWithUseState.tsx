@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import Todolist from "./components/Todolist";
 import {v1} from "uuid";
@@ -12,14 +12,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import {Paper} from "@mui/material";
-import {changeTodoListFilterAC, changeTodoListTitleAC, todoListsReducer} from "./state/reducers/todoListsReducer";
-import {
-    addTaskAC,
-    addTodolistAC, changeTaskStatusAC,
-    removeTaskAC,
-    removeTodolistAC,
-    tasksReducer, updateTaskTitleAC
-} from "./state/reducers/tasksReducer";
 
 type FilterType = 'All' | 'Active' | 'Completed'
 type TaskType = {
@@ -36,14 +28,14 @@ type TaskStateType = {
     [key: string]: Array<TaskType>
 }
 
-function AppWithReducers () {
+function AppWithUseState() {
 //     let todoListID1 = v1()
 //     let todoListID2 = v1()
-//     let [todoLists, dispatchToTodoLists] = useReducer(todoListsReducer, [
+//     let [todoLists, setTodoLists] = useState<Array<TodoListType>>([
 //         {id: todoListID1, title: 'What to learn', filter: 'All'},
 //         {id: todoListID2, title: 'What to buy', filter: 'All'}
 //     ])
-//     let [tasks, dispatchToTasks] = useReducer(tasksReducer, {
+//     let [tasks, setTasks] = useState<TaskStateType>({
 //         [todoListID1]: [
 //             {id: v1(), title: 'HTML&CSS', isDone: true},
 //             {id: v1(), title: 'JS', isDone: true},
@@ -58,41 +50,76 @@ function AppWithReducers () {
 //
 // // Buttons------------------------------------------------------------
 //     const removeTask = (id: string, todoListId: string) => {
-//         dispatchToTasks(removeTaskAC(id, todoListId))
+//         //Igor
+//         // setTasks({...tasks, [todoListId]: tasks[todoListId].filter(task => task.id !== id)})
+//         //Дістаємо потрібний нам масив по ключу todoListId
+//         const todoListTask = tasks[todoListId]
+//         //Перезапишемо в обʼєкті масив з видаленою таскою
+//         tasks[todoListId] = todoListTask.filter(task => task.id !== id)
+//         //Записуємо в стейт копію обʼєкта, вже з видаленою таскою
+//         setTasks({...tasks})
 //     }
 //     const addTask = (title: string, todoListId: string) => {
-//         dispatchToTasks(addTaskAC(title, todoListId))
+//         // Створюємо нову таску з обрізаними пробілами в тайтлі
+//         const newTask = {id: v1(), title: title.trim(), isDone: false}
+//         //Igor
+//         // setTasks({...tasks, [todoListId]: [newTask, ...tasks[todoListId]]})
+//         const todoListTask = tasks[todoListId]
+//         tasks[todoListId] = [newTask, ...todoListTask]
+//         setTasks({...tasks})
 //     }
-//     const removeTodoList = (todoListId: string) => {
-//         const action = removeTodolistAC(todoListId)
-//         dispatchToTodoLists(action)
-//         dispatchToTasks(action)
+//     const removeTodoList = (id: string) => {
+//         //Сетаємо тудуліст, але вже відфільтрований
+//         setTodoLists([...todoLists.filter(todoList => todoList.id !== id)])
+//         //Також видаляємо таски з цього тудуліста
+//         delete tasks[id]
 //     }
 //     const addTodoList = (title: string) => {
-//         const action = addTodolistAC(title)
-//         dispatchToTodoLists(action)
-//         dispatchToTasks(action)
+//         const newTodoListID = v1()
+//         const newTodoList: TodoListType = {id: newTodoListID, title: title.trim(), filter: 'All'}
+//         setTodoLists([newTodoList, ...todoLists])
+//         setTasks({...tasks, [newTodoListID]: []})
 //     }
 // //--------------------------------------------------------------------
 //
 // // Filter-------------------------------------------------------------
 //     const changeFilter = (filterValue: FilterType, todolistId: string) => {
-//         dispatchToTodoLists(changeTodoListFilterAC(todolistId, filterValue))
+//         //Записуємо в змінну тудуліст, в якому id = тому id по якому ми клікнули
+//         const todolist = todoLists.find(todolist => todolist.id === todolistId)
+//         if (todolist) {
+//             //Змінюємо значення фільтра в обраному тудулісті
+//             todolist.filter = filterValue
+//             //Записуємо в стейт тудулісти, серед яких один модефікований
+//             setTodoLists([...todoLists])
+//         }
+//         // Igor
+//         // setTodoLists(todoLists.map(elem => elem.id === todolistId ? {...elem, filter: filterValue} : elem))
 //     }
 // //--------------------------------------------------------------------
 //
 // // Checkbox-----------------------------------------------------------
 //     const changeTaskStatus = (taskId: string, isDone: boolean, todoListId: string) => {
-//         dispatchToTasks(changeTaskStatusAC(taskId, isDone, todoListId))
+//         //Igor
+//         // setTasks({...tasks, [todoListId]: tasks[todoListId].map(task => task.id === taskId ? {...task, isDone} : task)})
+//         const todolistTask = tasks[todoListId]
+//         //Записуємо в змінну таску, в якій id = тому id по якому ми клікнули
+//         const task = todolistTask.find(task => task.id === taskId)
+//         if (task) {
+//             task.isDone = isDone
+//             setTasks({...tasks})
+//         }
 //     }
 // //--------------------------------------------------------------------
 //
 // // Update-------------------------------------------------------------
 //     const updateTaskTitle = (todoListId: string, taskId: string, title: string) => {
-//         dispatchToTasks(updateTaskTitleAC(taskId, title, todoListId))
+//         setTasks({
+//             ...tasks,
+//             [todoListId]: tasks[todoListId].map(task => task.id === taskId ? {...task, title: title} : task)
+//         })
 //     }
 //     const updateTodoListTitle = (todoListId: string, title: string) => {
-//         dispatchToTodoLists(changeTodoListTitleAC(todoListId, title))
+//         setTodoLists(todoLists.map(todoList => todoList.id === todoListId ? {...todoList, title: title} : todoList))
 //     }
 // //--------------------------------------------------------------------
 //
@@ -153,4 +180,4 @@ function AppWithReducers () {
 //     );
 }
 
-export default AppWithReducers;
+export default AppWithUseState;

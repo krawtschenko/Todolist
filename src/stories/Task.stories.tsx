@@ -2,6 +2,7 @@ import React from 'react';
 import {ComponentStory, ComponentMeta} from '@storybook/react';
 import {Task} from "../components/Task";
 import {action} from "@storybook/addon-actions";
+import {TaskPriorities, TaskStatuses} from "../api/todolist-api";
 
 export default {
     title: 'TodoList/Task',
@@ -23,13 +24,35 @@ const Template: ComponentStory<typeof Task> = (args) => <Task {...args} />;
 export const TaskIsDoneExample = Template.bind({});
 TaskIsDoneExample.args = {
     ...baseArgs,
-    task: {id: '1', isDone: true, title: 'Javascript'},
+    task: {
+        description: '',
+        title: 'Javascript',
+        status: TaskStatuses.completed,
+        priority: TaskPriorities.low,
+        startDate: '',
+        deadline: '',
+        id: '1',
+        todoListId: 'todoList1',
+        order: 1,
+        addedDate: ''
+    },
     todoListId: 'todoList1',
 };
 
 export const TaskIsNotDoneExample = Template.bind({});
 TaskIsNotDoneExample.args = {
     ...baseArgs,
-    task: {id: '1', isDone: false, title: 'React JS'},
+    task: {
+        description: '',
+        title: 'React',
+        status: TaskStatuses.new,
+        priority: TaskPriorities.low,
+        startDate: '',
+        deadline: '',
+        id: '1',
+        todoListId: 'todoList1',
+        order: 1,
+        addedDate: ''
+    },
     todoListId: 'todoList1',
 };
