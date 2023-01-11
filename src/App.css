@@ -1,0 +1,21 @@
+.App {
+}
+
+.Container {
+    width: 90%;
+    margin: 0 auto;
+    display: grid;
+    grid-template-rows: repeat(2, auto);
+}
+
+.NewTodolist {
+    margin: 15px auto 0;
+}
+
+.Todolist {
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 284px);
+    gap: 15px;
+    justify-content: center;
+}

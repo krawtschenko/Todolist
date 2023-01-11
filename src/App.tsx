@@ -126,13 +126,13 @@ function App() {
                     <Button color="inherit">Login</Button>
                 </Toolbar>
             </AppBar>
-            <Container fixed>
+            <div className={"Container"}>
                 {/*Інпут і кнопка для додавання TodoList*/}
-                <Grid container style={{margin: "20px 0"}}>
+                <div className={"NewTodolist"}>
                     <AddItemForm addItem={addTodoList}/>
-                </Grid>
+                </div>
                 {/*TodoLists*/}
-                <Grid container spacing={2}>
+                <div className={"Todolist"}>
                     {todoLists.map((todolist) => {
                         // Тут зберігаємо таски даного тудуліста
                         const allTodolistTasks = tasks[todolist.id];
@@ -157,8 +157,8 @@ function App() {
                             </Grid>
                         );
                     })}
-                </Grid>
-            </Container>
+                </div>
+            </div>
         </div>
     );
 }
